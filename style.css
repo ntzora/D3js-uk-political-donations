@@ -8,7 +8,7 @@ p {
 
 li:hover,h2:hover,h3:hover,h4:hover,h5:hover,p:hover,strong:hover{
 color: red;
-font-size: 170%;
+font-size: 190%;
 transition: all 1.0s;
 }
 
