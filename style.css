@@ -5,6 +5,13 @@ body {
 p {
     margin: 5px 0;
 }
+
+li:hover,h2:hover,h3:hover,h4:hover,h5:hover,p:hover,strong:hover{
+color: red;
+font-size: 150%;
+transition: all 1.0s;
+}
+
 strong {
     font-weight: 700;
 }
