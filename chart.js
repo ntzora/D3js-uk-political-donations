@@ -346,6 +346,10 @@ function mouseover(d, i) {
 		.html(infoBox)
 			.style("display","block");
 	
+	window.speechSynthesis.cancel(msg);
+	
+	var msg = new SpeechSynthesisisUtterance("Donor " + d.donor + "Total value + "pounds");
+	window.speechSynthesis.speak(msg);					 
 	
 	}
 
