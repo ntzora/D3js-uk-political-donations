@@ -348,7 +348,7 @@ function mouseover(d, i) {
 	
 	window.speechSynthesis.cancel(msg);
 	
-	var msg = new SpeechSynthesisisUtterance("Donor " + d.donor + "Total value + "pounds");
+	var msg = new SpeechSynthesisisUtterance("Donor " + d.donor + "Total value" + d.value + "pounds");
 	window.speechSynthesis.speak(msg);					 
 	
 	}
