@@ -75,7 +75,19 @@ function transition(name) {
 		$("#view-donor-type").fadeIn(1000);
 		return donorType();
 	}
-	if (name === "group-by-money-source")
+
+	if (name === "group-by-amount") {
+		sound.play();
+		$("#initial-content").fadeOut(250);
+		$("#value-scale").fadeOut(250);
+		$("#view-donor-type").fadeOut(250);
+		$("#view-party-type").fadeOut(250);
+		$("#view-source-type").fadeOut(1000);
+		$("#view-amount-type").fadeIn(250);
+		return amountType();
+	}
+		
+	if (name === "group-by-money-source") {
 		beep.currentTime = 0;
 		beep.play();
 		$("#initial-content").fadeOut(250);
@@ -85,6 +97,7 @@ function transition(name) {
 		$("#view-source-type").fadeIn(1000);
 		return fundsType();
 	}
+}
 
 function start() {
 
