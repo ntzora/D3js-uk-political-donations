@@ -77,8 +77,9 @@ function transition(name) {
 		return donorType();
 	}
 
-	if (name === "group-by-amount") {
-		sound.play();
+	if (name === "group-by-amount-type") {
+		beep.currentTime = 0;
+		beep.play();
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
 		$("#view-donor-type").fadeOut(250);
