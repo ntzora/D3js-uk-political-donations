@@ -5,6 +5,7 @@ var nodes = [];
 var force, node, data, maxVal;
 var brake = 0.2;
 var radius = d3.scale.sqrt().range([10, 20]);
+// beep on click. Instructions found at: https://www.youtube.com/watch?v=VlwSz2dXK_8
 var beep = new Audio();
 beep.src="beep-07.mp3";
 
