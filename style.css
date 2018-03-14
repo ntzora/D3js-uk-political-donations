@@ -109,6 +109,25 @@ li {
     right: 0
 }
 
+/* Amount scale */
+#view-amount {
+    height: 100%;
+    left: 600px;
+    width: 370px;
+}
+
+#div_0_1500 {
+    top: 120px;
+}
+
+#div_1500_5500 {
+    top: 400px;
+}
+
+#div_more_5500 {
+    top: 650px;
+}
+
 /* Value scale */
 
 #value-scale {
