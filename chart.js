@@ -5,7 +5,7 @@ var nodes = [];
 var force, node, data, maxVal;
 var brake = 0.2;
 var radius = d3.scale.sqrt().range([10, 20]);
-var sound = new Audio("beep-07.mp3");
+var beep = new Audio("beep-07.mp3");
 
 var partyCentres = { 
     con: { x: w / 3, y: h / 3.3}, 
@@ -44,6 +44,7 @@ var comma = d3.format(",.0f");
 
 function transition(name) {
 	if (name === "all-donations") {
+		beep.play();
 		$("#initial-content").fadeIn(250);
 		$("#value-scale").fadeIn(1000);
 		$("#view-donor-type").fadeOut(250);
