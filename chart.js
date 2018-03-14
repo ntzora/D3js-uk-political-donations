@@ -63,7 +63,7 @@ function transition(name) {
 		$("#view-party-type").fadeIn(1000);
 		return partyGroup();
 	}
-	if (name === "group-by-donor-type") {
+	if (name === "group-by-donor-type")
 		//sound.play();
 		$("#initial-content").fadeOut(250);
 		$("#value-scale").fadeOut(250);
