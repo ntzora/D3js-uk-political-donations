@@ -116,16 +116,22 @@ li {
     width: 370px;
 }
 
-#div_0_1500 {
+#div_0_500 {
     top: 120px;
 }
 
-#div_1500_5500 {
+#div_500_5000 {
     top: 400px;
+    left: 300px;
 }
 
-#div_more_5500 {
-    top: 650px;
+#div_5000_10000 {
+    top: 120px;
+}
+
+#div_more_10000 {
+    top: 400px;
+    left: 300px;
 }
 
 /* Value scale */
