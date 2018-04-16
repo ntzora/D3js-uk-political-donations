@@ -417,7 +417,7 @@ function mouseover(d, i) {
 		.html(infoBox)
 			.style("display","block");
 	responsiveVoice.speak(donor + "donated" + amount + "pounds");
-	
+	$("#mouseTrackingCrumbs").prepend("<img src='" + imageFile +"' width='30' height='30' onError='this.src=\"https://github.com/favicon.ico\";' /><br/>");
 	}
 
 function mouseout() {
