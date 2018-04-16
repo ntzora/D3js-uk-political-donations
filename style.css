@@ -113,29 +113,31 @@ li {
 #view-amount-type {
     position: absolute;
     height: 100%;
-    width: 600px;
+    width: 100%;
 }
 
 #div_0_500 {
-    position: relative; 
-    top: 120px;
+    position: absolute; 
+    top: 50px;
+    left: 200px;
 }
 
 #div_500_5000 {
-    position: relative; 
-    top: 500px;
+    position: absolute; 
+    top: 600px;
+    left: 200px;
 }
 
 #div_5000_10000 {
-    position: relative; 
-    top: 120px;
-    left: 400px;
+    position: absolute; 
+    top: 50px;
+    left: 800px;
 }
 
 #div_more_10000 {
-    position: relative; 
-    top: 500px;
-    left: 400px;
+    position: absolute; 
+    top: 600px;
+    left: 800px;
 }
 
 /* Value scale */
