@@ -120,11 +120,6 @@ li {
 }
 
 /* Amount scale */
-#view-amount-type {
-    height: 100%;
-    width: 100%;
-}
-
 #div_0_500 {
     position: absolute; 
     top: 50px;
