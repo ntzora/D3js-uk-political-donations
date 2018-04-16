@@ -124,24 +124,28 @@ li {
     position: absolute; 
     top: 50px;
     left: 200px;
+    width: 200px;
 }
 
 #div_500_5000 {
     position: absolute; 
     top: 620px;
     left: 200px;
+    width: 200px;
 }
 
 #div_5000_10000 {
     position: absolute; 
     top: 50px;
     left: 750px;
+    width: 200px;
 }
 
 #div_more_10000 {
     position: absolute; 
     top: 620px;
     left: 750px;
+    width: 200px;
 }
 
 /* Value scale */
