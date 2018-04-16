@@ -110,7 +110,8 @@ li {
 }
 
 /* Amount scale */
-#view-amount {
+#view-amount-type {
+    position: absolute;
     height: 100%;
     left: 600px;
     width: 370px;
@@ -124,12 +125,12 @@ li {
 #div_500_5000 {
     position: absolute; 
     top: 400px;
-    left: 300px;
 }
 
 #div_5000_10000 {
     position: absolute; 
     top: 120px;
+    left: 300px;
 }
 
 #div_more_10000 {
