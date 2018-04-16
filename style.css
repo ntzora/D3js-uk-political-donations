@@ -117,19 +117,23 @@ li {
 }
 
 #div_0_500 {
+    position: absolute; 
     top: 120px;
 }
 
 #div_500_5000 {
+    position: absolute; 
     top: 400px;
     left: 300px;
 }
 
 #div_5000_10000 {
+    position: absolute; 
     top: 120px;
 }
 
 #div_more_10000 {
+    position: absolute; 
     top: 400px;
     left: 300px;
 }
