@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body{
+    font-family: sans-serif;
+  }
+
+  h1, h2, h3{
+    text-align: center;
+  }
+
+  .svgContainer{
+    text-align: center;
+  }
+
+  .axis text {
+    font: 10px sans-serif;
+  }
+
+  .chart text {
+    fill: black;
+    font: 10px sans-serif;
+    text-anchor: end;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  a[role=button]{
+    font: 12px sans-serif;
+    display: inline-block;
+    background-color: white;
+    color: black;
+    margin: 0 5px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid grey;
+  }
+
+  a[role=button]:hover{
+    cursor: pointer;
+    background-color: #e5e5e5;
+    color: black;
+  }
+
+  nav {
+    text-align: center;
+  }
+
+  #textForGrouppedByEntity, #textForGrouppedByParty{
+    text-align: center;
+  }
+</style>
+<h2>Who's funding the big three?</h2>
+<nav>
+  <a role="button" onclick="displayByParty()" id="groupedByParty">Party Funding</a>
+  <a role="button" onclick="displayByEntity()" id="groupedByEntity">Entities Contribution</a>
+</nav>
+<div id="textForGrouppedByParty">
+  <h3>Income for each party.</h3>
+  <p>
+    Labour party was funded mainly by Trade Unions and Public Funds,
+    while Conservatives mostly by Individuals and Companies.
+  </p>
+</div>
+<div id="textForGrouppedByEntity">
+  <h3>Contribution by entity type.</h3>
+  <p>
+    Individuals contributed the most to the funding of the Big Three, most of them supporting the Conservative Party.
+    Trade Unions come second and, as expected, funded only the Labour Party. Public Funds and Companies come to the
+    third and fourth place respectively.
+  </p>
+</div>
+<div class="svgContainer">
+  <svg class="chart"></svg>
+</div>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+// Script modified from https://bost.ocks.org/mike/bar/
+
+var margin = {top: 20, right: 70, bottom: 30, left: 70},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var availableColors = ['red', 'blue', 'orange', 'green', 'purple', 'magenta'];
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var groupedByEntity = [];
+var groupedByParty = [];
+
+var entityColors = {};
+var partyColors = {};
+
+d3.csv("data/7500up.csv", function(d) {d.amount = +d.amount; return d;}, function(error, data) {
+
+    data.forEach(function (record) {
+
+        // Section: Group By Entity
+        if (Object.keys(partyColors).indexOf(record.party) < 0) partyColors[record.party] =
+            availableColors[Object.keys(partyColors).length % availableColors.length];
+        var anEntity = groupedByEntity.find(function (item) {
+            return item.group === record.entityname
+        });
+        if (anEntity){
+            var party = anEntity.subgroups.find(function (p) {return p.name === record.partyname})
+            if(party){
+                party.amount += record.amount;
+            }
+            else
+                anEntity.subgroups.push({
+                    name: record.partyname,
+                    color: partyColors[record.party],
+                    amount: record.amount
+                });
+        }
+        else {
+            var newEntity = {
+                group: record.entityname,
+                subgroups: [{
+                    name: record.partyname,
+                    color: partyColors[record.party],
+                    amount: record.amount
+                }]
+            };
+            groupedByEntity.push(newEntity);
+        }
+        groupedByEntity = groupedByEntity.sort(function (a, b) {
+            var sumA = 0, sumB = 0;
+            a.subgroups.forEach(function (value) { sumA += value.amount });
+            b.subgroups.forEach(function (value) { sumB += value.amount });
+            return sumB - sumA;
+        })
+
+
+
+        // Section: Group By Party
+        if (Object.keys(entityColors).indexOf(record.entity) < 0) entityColors[record.entity] =
+            availableColors[Object.keys(entityColors).length % availableColors.length];
+        var party = groupedByParty.find(function (item) {
+            return item.group === record.partyname
+        });
+        if (party){
+            var entity = party.subgroups.find(function (ent) {return ent.name === record.entityname})
+            if(entity){
+                entity.amount += record.amount;
+            }
+            else
+                party.subgroups.push({
+                    name: record.entityname,
+                    color: entityColors[record.entity],
+                    amount: record.amount
+                });
+        }
+        else {
+            var newParty = {
+                group: record.partyname,
+                subgroups: [{
+                    name: record.entityname,
+                    color: entityColors[record.entity],
+                    amount: record.amount
+                }]
+            };
+            groupedByParty.push(newParty);
+        }
+
+    });
+
+    displayByParty();
+
+});
+
+function displayByParty() {
+    display(groupedByParty);
+    d3.select("#textForGrouppedByParty").style({"display": "block"});
+    d3.select("#textForGrouppedByEntity").style({"display": "none"});
+}
+
+function displayByEntity() {
+    display(groupedByEntity);
+    d3.select("#textForGrouppedByParty").style({"display": "none"});
+    d3.select("#textForGrouppedByEntity").style({"display": "block"});
+}
+
+function display(data) {
+
+    // Clear svg from any previous drawings
+    chart.selectAll("*").remove();
+
+
+    // Define domain
+    x.domain(data.map(function(d) { return d.group; }));
+    y.domain([0, d3.max(data, function (d) {
+        return d.subgroups.reduce(function(a, v) {return a + v.amount}, 0);
+    })]);
+
+    // Draw axises
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    // Define bars
+    var bar = chart.selectAll(".bar")
+        .data(data)
+        .enter();
+
+
+    var maxSubGroups = 0;
+    data.forEach(function (value) {
+        maxSubGroups = Math.max(maxSubGroups, value.subgroups.length);
+    });
+
+    // Draw stacked rectangles on each bar
+    for (var i = 0; i < maxSubGroups; i++){
+          bar.append("rect")
+              .attr("x", function(d) { return x(d.group); })
+              .attr("y", function(d) {
+                  if (d.subgroups.length > i){
+                      var partSumAmount = 0;
+                      for (var j = i; j >= 0; j--)
+                          partSumAmount += d.subgroups[j].amount;
+                      return y(partSumAmount);
+                  }
+                  else return 0;
+              })
+              .attr("height", function(d) {
+                  if (d.subgroups.length > i){
+                      return height - y(d.subgroups[i].amount);
+                  }
+                  else return 0;
+              })
+              .attr("fill", function(d) {
+                  if (d.subgroups.length > i){
+                      return d.subgroups[i].color;
+                  }
+                  else return;
+              })
+              .attr("width", x.rangeBand());
+    }
+
+    var subGroupLegendData = [];
+    data.forEach(function(d){
+        d.subgroups.forEach(function (sg) {
+            var sgColor = subGroupLegendData.find(function (legData) { return legData.color === sg.color; });
+            if (!sgColor) {
+                subGroupLegendData.push({color: sg.color, name: sg.name});
+            }
+        });
+    });
+
+
+    // Draw legend
+    var legend = chart.selectAll(".legend")
+        .data(subGroupLegendData)
+        .enter();
+
+    legend.append("rect")
+        .attr("x", width - 10 )
+        .attr("y", function(d) {
+            var sgColor = subGroupLegendData.find(function (legData) { return legData.color === d.color; });
+            return 18 * subGroupLegendData.indexOf(sgColor);
+        })
+        .attr("height", 14)
+        .attr("fill", function (d) { return d.color})
+        .attr("width", 14);
+
+    legend.append("rect")
+        .attr("x", width - 10 )
+        .attr("y", function(d) {
+            var sgColor = subGroupLegendData.find(function (legData) { return legData.color === d.color; });
+            return 18 * subGroupLegendData.indexOf(sgColor);
+        })
+        .attr("height", 14)
+        .attr("fill", function (d) { return d.color})
+        .attr("width", 14);
+
+    legend.append("text")
+        .attr("x", width - 20)
+        .attr("y", function(d) {
+            var sgColor = subGroupLegendData.find(function (legData) { return legData.color === d.color; });
+            return 18 * subGroupLegendData.indexOf(sgColor);
+        })
+        .attr("dy", "1em")
+        .text(function(d) { return d.name; });
+}
+</script>
