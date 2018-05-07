@@ -6,7 +6,7 @@ p {
     margin: 5px 0;
 }
 
-li:hover,h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,p:hover,strong:hover{
+li:hover,h2:hover,h3:hover,h4:hover,h5:hover,p:hover,strong:hover{
 color: red;
 font-size: 190%;
 transition: all 1.0s;
