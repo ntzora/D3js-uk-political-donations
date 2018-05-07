@@ -63,7 +63,6 @@ function start() {
 		.data(nodes)
 	.enter().append("circle")
 	        .attr("area", function(d) { return d.area; })
-		.attr("class", function(d) { return "node " + d.party; })
 		.attr("consumption", function(d) { return d.value; })
 		.attr("region", function(d) { return d.region; })
 		.attr("fuel", function(d) { return d.fuel; })
