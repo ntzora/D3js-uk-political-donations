@@ -145,6 +145,18 @@ circle.active {
 .tooltip p, h3 {
     margin: 0.2em;
 }
+.lab {
+    fill: #F02233;
+}
+.lib {
+    fill: #FDBB30;
+}
+.con {
+    fill: #087FBD;
+}
+.snp {
+    fill: #C9C945;
+}
 /*!
 Pure v0.2.1
 Copyright 2013 Yahoo! Inc. All rights reserved.
