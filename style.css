@@ -7,11 +7,13 @@ p {
 }
 
 li:hover,h2:hover,h3:hover,h4:hover,h5:hover,p:hover,strong:hover{
-color: red;
 font-size: 190%;
 transition: all 1.0s;
 }
-
+h1:hover{
+    font-size: 300%;
+    transition: all 1.0s;
+}
 strong {
     font-weight: 700;
 }
